@@ -57,4 +57,4 @@ print("Total comments scraped: %s" % sum(tot_comms))
 # list of sentences or rather list of words in correct order needed to train word2vec: CHECK!!!
 
 
-print("Time: %s sec" % (time.time() - start_time))
+print("Time: %s min" % ((time.time() - start_time)/60))
