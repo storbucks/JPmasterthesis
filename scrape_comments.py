@@ -45,9 +45,20 @@ df = pd.DataFrame(
 comm_dict = {i:[] for i in ids}
 # store list of comments to each submission in dictionary
 
-for sub in sr.hot(limit=5):
-    count = 0
+  # always accesses first id, even though count goes up
+count = 0
+while count < len(ids):
+    for sub in sr.hot(limit=5):
+        for comment in sub.comments.list():
+            comm_dict[ids[count]].append(comment.body)
+    print(count)
+    count += 1
 
-    for comment in sub.comments.list():
-        while count < len(ids):
-            comm_dict[ids[count]].append(comment.body)count += 1
+    # problem: always access comments of first entry
+
+#%%
+for id in ids:
+    submission =  reddit.submission(id=id)
+    print(id)
+    for comment in submission.comments.list():
+        comm_dict[id].append(comment.body)
