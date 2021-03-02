@@ -1,5 +1,8 @@
 import praw
 import pandas as pd
+import time
+
+start_time = time.time()
 
 # API access
 reddit = praw.Reddit(
@@ -16,7 +19,6 @@ reddit = praw.Reddit(
 #     sr = reddit.subreddit(i)
 #     print(sr)
 
-
 sr = reddit.subreddit("finance")
 
 titles = []
@@ -27,7 +29,7 @@ comments = []
 urls = []
 ids = []
 # for every submission in given subreddit, extract data as shown and extract comment tree in separate 
-for subm in sr.hot(limit=10):
+for subm in sr.new(limit=100):  # newest
     titles.append(subm.title)
     scores.append(subm.score)
     ratios.append(subm.upvote_ratio)
@@ -36,15 +38,23 @@ for subm in sr.hot(limit=10):
     urls.append(subm.url)
     ids.append(subm.id)
 
-
+# store scraped info in dataframe
 df = pd.DataFrame(
     list(zip(titles, scores, ratios, comments, com_count, urls, ids)),
     columns=["title", "score", "ratio", "comments", "number_coms", "url", "id"])
 
 # make dictionary for every submisson
-comm_dict = {i:[] for i in ids}
+comms_dict = {i:[] for i in ids}
+tot_comms = []
 for id in ids:
     submission = reddit.submission(id=id)
     submission.comments.replace_more(limit=None)
     for comment in submission.comments.list():
-        comm_dict[id].append(comment.body)
+        comms_dict[id].append(comment.body)
+    tot_comms.append(len(comms_dict[id]))
+print("Total comments scraped: %s" % sum(tot_comms))
+
+# list of sentences or rather list of words in correct order needed to train word2vec: CHECK!!!
+
+
+print("Time: %s sec" % (time.time() - start_time))
