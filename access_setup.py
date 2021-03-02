@@ -57,5 +57,6 @@ for post in res.json()['data']['children']:
         'upvote_ratio': post['data']['upvote_ratio'],
         'ups': post['data']['ups'],
         'downs': post['data']['downs'],
-        'score': post['data']['score']
+        'score': post['data']['score'],
+        'comments': post['data']['comments']
     }, ignore_index=True)
