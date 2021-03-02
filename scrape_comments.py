@@ -27,14 +27,14 @@ comments = []
 urls = []
 ids = []
 # for every submission in given subreddit, extract data as shown and extract comment tree in separate 
-for sub in sr.hot(limit=5):
-    titles.append(sub.title)
-    scores.append(sub.score)
-    ratios.append(sub.upvote_ratio)
-    comments.append(sub.comments)
-    com_count.append(sub.num_comments)
-    urls.append(sub.url)
-    ids.append(sub.id)
+for subm in sr.hot(limit=10):
+    titles.append(subm.title)
+    scores.append(subm.score)
+    ratios.append(subm.upvote_ratio)
+    comments.append(subm.comments)
+    com_count.append(subm.num_comments)
+    urls.append(subm.url)
+    ids.append(subm.id)
 
 
 df = pd.DataFrame(
@@ -43,22 +43,8 @@ df = pd.DataFrame(
 
 # make dictionary for every submisson
 comm_dict = {i:[] for i in ids}
-# store list of comments to each submission in dictionary
-
-  # always accesses first id, even though count goes up
-count = 0
-while count < len(ids):
-    for sub in sr.hot(limit=5):
-        for comment in sub.comments.list():
-            comm_dict[ids[count]].append(comment.body)
-    print(count)
-    count += 1
-
-    # problem: always access comments of first entry
-
-#%%
 for id in ids:
-    submission =  reddit.submission(id=id)
-    print(id)
+    submission = reddit.submission(id=id)
+    submission.comments.replace_more(limit=None)
     for comment in submission.comments.list():
         comm_dict[id].append(comment.body)
