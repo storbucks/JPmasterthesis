@@ -10,16 +10,35 @@ reddit = praw.Reddit(
     # password="hf)ua7(:ski9@1",
 )
 
-# submission id found in URL
-url = "https://www.reddit.com/r/finance/comments/lvo9a9/gamestop_surges_more_than_18_other_meme_stocks/"
-submission = reddit.submission(url=url)
+# access subreddit
+sr = reddit.subreddit("finance")
 
-# scrape comments
+titles = []
+scores = []
+ratios = []
+com_count = []
 comments = []
-for top_level_comment in submission.comments:
-    comments.append(str(top_level_comment.body))
+urls = []
+ids = []
+# for every submission in given subreddit, extract data as shown and extract comment tree in separate 
+for sub in sr.hot(limit=5):
+    titles.append(sub.title)
+    scores.append(sub.score)
+    ratios.append(sub.upvote_ratio)
+    comments.append(sub.comments)
+    com_count.append(sub.num_comments)
+    urls.append(sub.url)
+    ids.append(sub.id)
 
-c = pd.DataFrame(comments, columns=["comments"])
 
+df = pd.DataFrame(
+    list(zip(titles, scores, ratios, comments, com_count, urls, ids)),
+    columns=["title", "score", "ratio", "comments", "number_coms", "url", "id"])
 
-
+# make dictionary for every submisson
+comm_dict = {i:[] for i in ids}
+# store list of comments to each submission in dictionary
+count = 0
+for comment in sub.comments.list():
+    comm_dict[ids[count]].append(comment.body)
+    count += 1
