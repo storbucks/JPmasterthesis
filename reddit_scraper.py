@@ -64,3 +64,4 @@ for id in ids:
     split_comm = join_comm.split()  # list of words
     splitted_comms_all.append(split_comm) # makes list of list of words
 commis_all = list(itertools.chain.from_iterable(splitted_comms_all))  # joins lists inside list
+# attention: connection to submission ID lost (is it even needed though?)
