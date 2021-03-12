@@ -55,3 +55,12 @@ print("Total comments scraped: %s" % sum(tot_comms))
 print("Time: %s min" % ((time.time() - start_time)/60))
 
 # list of sentences or rather list of words in correct order needed to train word2vec: CHECK!!!
+#%%
+import itertools
+splitted_comms_all = []
+for id in ids:
+    test_comm = comms_dict.get(id)  # gets list of resp. submission
+    join_comm = "".join(test_comm) # makes list to string
+    split_comm = join_comm.split()  # list of words
+    splitted_comms_all.append(split_comm) # makes list of list of words
+commis_all = list(itertools.chain.from_iterable(splitted_comms_all))  # joins lists inside list
