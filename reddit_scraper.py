@@ -41,7 +41,7 @@ for subm in sr.new(limit=5):  # newest
 df = pd.DataFrame(
     list(zip(dates, titles, selftext, scores, ratios, comments, com_count, urls, ids)),
     columns=["date", "title", "selftext", "score", "ratio", "comments", "number_coms", "url", "id"])
-
+#%%
 # make dictionary for every submisson
 comms_dict = {i:[] for i in ids}
 tot_comms = []
@@ -65,3 +65,5 @@ for id in ids:
     splitted_comms_all.append(split_comm) # makes list of list of words
 commis_all = list(itertools.chain.from_iterable(splitted_comms_all))  # joins lists inside list
 # attention: connection to submission ID lost (is it even needed though?)
+ratio = len(commis_all)/sum(tot_comms)
+print(ratio)
