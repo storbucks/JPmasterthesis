@@ -26,7 +26,7 @@ com_count = []
 urls = []
 ids = []
 # for every submission in given subreddit, extract data as shown and extract comment tree in separate
-for subm in sr.new(limit=5):  # newest
+for subm in sr.new(limit=50):  # newest
     dates.append(datetime.utcfromtimestamp(int(subm.created_utc)).strftime('%Y-%m-%d %H:%M:%S'))
     titles.append(subm.title)
     selftext.append(subm.selftext)
