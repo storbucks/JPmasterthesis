@@ -1,6 +1,7 @@
 import praw
 import pandas as pd
 import time
+
 from datetime import datetime
 
 start_time = time.time()
@@ -66,4 +67,4 @@ for id in ids:
 commis_all = list(itertools.chain.from_iterable(splitted_comms_all))  # joins lists inside list
 # attention: connection to submission ID lost (is it even needed though?)
 ratio = len(commis_all)/sum(tot_comms)
-print(ratio)
+print("Avg. words per comment: %s" % ratio)
