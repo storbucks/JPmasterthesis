@@ -68,7 +68,7 @@ for id in ids:
     join_comm = "".join(test_comm) # makes list to string
     comments_as_list.append(join_comm)  # make list of one string per comment
     split_comm = join_comm.split()  # list of words (not needed probs.)
-    splitted_comms_all.append(split_comm) # makes list of list of words (not needed probs.)
+    splitted_comms_all.append(split_comm)  # makes list of list of words (not needed probs.)
 commis_all = list(itertools.chain.from_iterable(splitted_comms_all))  # joins lists inside list (not needed probs.)
 # attention: connection to submission ID lost (is it even needed though?)
 ratio = len(commis_all)/sum(tot_comms)  # comments per submission
