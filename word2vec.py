@@ -2,18 +2,15 @@
 import time
 from gensim.models import Word2Vec as w2v
 
-from reddit_scraper import splitted_comms_all
+from preprocessing import prep_dok  # comments to learn language model from
 
-stime = time.time()
+# stime = time.time()
 #%%
-# comments to learn language model from
-model = w2v(sentences=splitted_comms_all, vector_size=100, window=5, min_count=1, workers=4)
+
+model = w2v(sentences=prep_dok, sg=1, vector_size=100, window=5, min_count=1, workers=4)
 model.save("word2vec.model")
 
-# model = w2v.load("word2vec.model")
-# model.train([["hello", "world"]], total_examples=1, epochs=1)
+vector = model.wv['up']  # object essentially contains the mapping between words and embeddings (wv)
+print(model.wv.similarity('up', 'high'))  # check similarity
 
-vector = model.wv['up']
-print(model.wv.similarity('bull', 'bear'))
-
-print("Time: %s s" % ((time.time() - stime)))
+# print("Time: %s s" % ((time.time() - stime)))

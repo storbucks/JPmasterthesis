@@ -1,8 +1,11 @@
 import praw
 import pandas as pd
 import time
+import numpy as np
 
 from datetime import datetime
+
+#%%
 
 start_time = time.time()
 
@@ -27,7 +30,7 @@ com_count = []
 urls = []
 ids = []
 # for every submission in given subreddit, extract data as shown and extract comment tree in separate
-for subm in sr.new(limit=50):  # newest
+for subm in sr.new(limit=100):  # newest
     dates.append(datetime.utcfromtimestamp(int(subm.created_utc)).strftime('%Y-%m-%d %H:%M:%S'))
     titles.append(subm.title)
     selftext.append(subm.selftext)
@@ -59,12 +62,14 @@ print("Time: %s min" % ((time.time() - start_time)/60))
 #%%
 import itertools
 splitted_comms_all = []
+comments_as_list = []
 for id in ids:
     test_comm = comms_dict.get(id)  # gets list of resp. submission
     join_comm = "".join(test_comm) # makes list to string
-    split_comm = join_comm.split()  # list of words
-    splitted_comms_all.append(split_comm) # makes list of list of words
-commis_all = list(itertools.chain.from_iterable(splitted_comms_all))  # joins lists inside list
+    comments_as_list.append(join_comm)  # make list of one string per comment
+    split_comm = join_comm.split()  # list of words (not needed probs.)
+    splitted_comms_all.append(split_comm) # makes list of list of words (not needed probs.)
+commis_all = list(itertools.chain.from_iterable(splitted_comms_all))  # joins lists inside list (not needed probs.)
 # attention: connection to submission ID lost (is it even needed though?)
-ratio = len(commis_all)/sum(tot_comms)
+ratio = len(commis_all)/sum(tot_comms)  # comments per submission
 print("Avg. words per comment: %s" % ratio)
