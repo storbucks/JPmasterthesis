@@ -1,3 +1,4 @@
+#%%
 import praw
 import pandas as pd
 import time
@@ -5,7 +6,7 @@ import numpy as np
 
 from datetime import datetime
 
-#%%
+
 
 start_time = time.time()
 
@@ -30,7 +31,7 @@ com_count = []
 urls = []
 ids = []
 # for every submission in given subreddit, extract data as shown and extract comment tree in separate
-for subm in sr.new(limit=100):  # newest
+for subm in sr.new(limit=50):  # newest
     dates.append(datetime.utcfromtimestamp(int(subm.created_utc)).strftime('%Y-%m-%d %H:%M:%S'))
     titles.append(subm.title)
     selftext.append(subm.selftext)
@@ -45,7 +46,7 @@ for subm in sr.new(limit=100):  # newest
 df = pd.DataFrame(
     list(zip(dates, titles, selftext, scores, ratios, comments, com_count, urls, ids)),
     columns=["date", "title", "selftext", "score", "ratio", "comments", "number_coms", "url", "id"])
-#%%
+
 # make dictionary for every submisson
 comms_dict = {i:[] for i in ids}
 tot_comms = []
@@ -63,10 +64,12 @@ print("Time: %s min" % ((time.time() - start_time)/60))
 import itertools
 splitted_comms_all = []
 comments_as_list = []
+test_comms = []
 for id in ids:
     test_comm = comms_dict.get(id)  # gets list of resp. submission
+    test_comms.append(test_comm)  # list of whole comment as one list itself
     join_comm = "".join(test_comm) # makes list to string
-    comments_as_list.append(join_comm)  # make list of one string per comment
+    comments_as_list.append(join_comm)  # list of whole comment as one str list object
     split_comm = join_comm.split()  # list of words (not needed probs.)
     splitted_comms_all.append(split_comm)  # makes list of list of words (not needed probs.)
 commis_all = list(itertools.chain.from_iterable(splitted_comms_all))  # joins lists inside list (not needed probs.)
