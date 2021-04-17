@@ -53,6 +53,7 @@ w2v_model = Word2Vec(prep_dok, sg=1, vector_size=100, window=5, min_count=1, wor
 # similar words to the word "time"
 print(w2v_model.wv.most_similar('time'))
 
+
 #%%
 # build model vocabulary from a sequence of sentences
 w2v_model.build_vocab(data_2, update=True)
