@@ -47,9 +47,9 @@ data = commis_all
 data_1 = data[:60000]
 data_2 = data[60000:]
 
-# Training the Word2Vec model
+# Create the Word2Vec model
 w2v_model = Word2Vec(prep_dok, sg=1, vector_size=100, window=5, min_count=1, workers=4)
-
+w2v_model.save('w2v_model_v2.model')
 # similar words to the word "time"
 print(w2v_model.wv.most_similar('time'))
 
@@ -62,3 +62,4 @@ w2v_model.build_vocab(data_2, update=True)
 w2v_model.train(data_2, total_examples=w2v_model.corpus_count, epochs=200)
 
 print(w2v_model.wv['time'])
+print(len(w2v_model.wv.index_to_key))  # number of unique words (after preprocessing) and thus vectors for NN

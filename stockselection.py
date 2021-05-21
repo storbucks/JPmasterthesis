@@ -4,8 +4,8 @@ import datetime
 api = PushshiftAPI()
 
 start_epoch = int(datetime.datetime(2021, 1, 1).timestamp())  # START DATE FROM WHERE OFF WE SCRAPE
-end_epoch = int(datetime.datetime(2021, 3, 31).timestamp())
-
+end_epoch = int(datetime.datetime(2021, 1, 31).timestamp())
+#%%
 submissions = list(api.search_submissions(after=start_epoch, subreddit='wallstreetbets',
                                           filter=['url','author', 'title', 'subreddit']
                                           ))
