@@ -1,3 +1,7 @@
+###############
+## Via JSON ##
+##############
+
 # source: https://towardsdatascience.com/how-to-use-the-reddit-api-in-python-5e05ddfd1e5c
 import requests
 import pandas as pd
