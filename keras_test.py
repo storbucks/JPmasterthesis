@@ -136,7 +136,6 @@ with open("embeddings.txt") as f:
 print("Found %s word vectors." % len(embeddings_index))
 
 #%%
-import store_text_correctly
 ## load pre-trained WE matrix into an 'embedding' layer
 # num_tokens = len(w2v_model.wv.index_to_key)
 # embedding_dim = w2v_model.vector_size
