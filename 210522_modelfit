@@ -1,3 +1,4 @@
+210522:
 model.compile(
     loss="sparse_categorical_crossentropy", optimizer="rmsprop", metrics=["acc"]
 )
@@ -43,3 +44,51 @@ Epoch 19/20
 Epoch 20/20
 125/125 [==============================] - 22s 177ms/step - loss: 2.6517 - acc: 0.1786 - val_loss: 2.9272 - val_acc: 0.1095
 Out[18]: <tensorflow.python.keras.callbacks.History at 0x7fa98fa842b0>
+
+
+210528:
+model.compile(
+    loss="sparse_categorical_crossentropy", optimizer="rmsprop", metrics=["acc"]
+)
+model.fit(x_train, y_train, batch_size=128, epochs=20, validation_data=(x_val, y_val))
+Epoch 1/20
+125/125 [==============================] - 23s 178ms/step - loss: 2.9614 - acc: 0.0774 - val_loss: 2.8827 - val_acc: 0.1060
+Epoch 2/20
+125/125 [==============================] - 23s 180ms/step - loss: 2.8882 - acc: 0.1045 - val_loss: 2.8743 - val_acc: 0.1068
+Epoch 3/20
+125/125 [==============================] - 23s 182ms/step - loss: 2.8505 - acc: 0.1161 - val_loss: 2.8302 - val_acc: 0.1230
+Epoch 4/20
+125/125 [==============================] - 23s 182ms/step - loss: 2.8072 - acc: 0.1286 - val_loss: 2.7928 - val_acc: 0.1283
+Epoch 5/20
+125/125 [==============================] - 23s 182ms/step - loss: 2.7801 - acc: 0.1344 - val_loss: 2.8017 - val_acc: 0.1260
+Epoch 6/20
+125/125 [==============================] - 23s 181ms/step - loss: 2.7486 - acc: 0.1451 - val_loss: 2.7585 - val_acc: 0.1363
+Epoch 7/20
+125/125 [==============================] - 23s 180ms/step - loss: 2.7124 - acc: 0.1570 - val_loss: 2.7608 - val_acc: 0.1380
+Epoch 8/20
+125/125 [==============================] - 24s 194ms/step - loss: 2.6680 - acc: 0.1702 - val_loss: 2.7706 - val_acc: 0.1435
+Epoch 9/20
+125/125 [==============================] - 25s 200ms/step - loss: 2.6207 - acc: 0.1831 - val_loss: 2.7741 - val_acc: 0.1348
+Epoch 10/20
+125/125 [==============================] - 22s 178ms/step - loss: 2.5683 - acc: 0.1991 - val_loss: 2.8120 - val_acc: 0.1403
+Epoch 11/20
+125/125 [==============================] - 23s 181ms/step - loss: 2.5068 - acc: 0.2163 - val_loss: 2.7669 - val_acc: 0.1470
+Epoch 12/20
+125/125 [==============================] - 22s 177ms/step - loss: 2.4367 - acc: 0.2371 - val_loss: 2.7862 - val_acc: 0.1445
+Epoch 13/20
+125/125 [==============================] - 22s 176ms/step - loss: 2.3627 - acc: 0.2590 - val_loss: 2.9400 - val_acc: 0.1420
+Epoch 14/20
+125/125 [==============================] - 22s 174ms/step - loss: 2.2928 - acc: 0.2823 - val_loss: 2.8424 - val_acc: 0.1540
+Epoch 15/20
+125/125 [==============================] - 22s 175ms/step - loss: 2.2079 - acc: 0.3047 - val_loss: 2.9122 - val_acc: 0.1403
+Epoch 16/20
+125/125 [==============================] - 22s 173ms/step - loss: 2.1323 - acc: 0.3252 - val_loss: 3.0294 - val_acc: 0.1390
+Epoch 17/20
+125/125 [==============================] - 21s 172ms/step - loss: 2.0542 - acc: 0.3494 - val_loss: 3.0292 - val_acc: 0.1500
+Epoch 18/20
+125/125 [==============================] - 21s 172ms/step - loss: 1.9562 - acc: 0.3787 - val_loss: 3.1280 - val_acc: 0.1470
+Epoch 19/20
+125/125 [==============================] - 21s 172ms/step - loss: 1.8811 - acc: 0.3994 - val_loss: 3.1479 - val_acc: 0.1460
+Epoch 20/20
+125/125 [==============================] - 21s 171ms/step - loss: 1.8115 - acc: 0.4233 - val_loss: 3.4017 - val_acc: 0.1385
+Out[12]: <tensorflow.python.keras.callbacks.History at 0x7ffbb6adc2e0>

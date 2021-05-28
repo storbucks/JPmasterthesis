@@ -122,15 +122,43 @@ test = ["the", "cat", "sat", "on", "the", "mat"]
 print([word_index[w] for w in test])  #added print
 
 #%%
-from gensim.models.word2vec import Word2Vec
-## Load pretrained WE model
-w2v_model = Word2Vec.load("w2v_model_v2.model")
+# from gensim.models.word2vec import Word2Vec
+# ## Load pretrained WE model
+# w2v_model = Word2Vec.load("w2v_model_v2.model")
+
+embeddings_index = {}
+with open("embeddings.txt") as f:
+    for line in f:
+        word, coefs = line.split(maxsplit=1)
+        coefs = np.fromstring(coefs, "f", sep=" ")
+        embeddings_index[word] = coefs
+
+print("Found %s word vectors." % len(embeddings_index))
 
 #%%
+import store_text_correctly
 ## load pre-trained WE matrix into an 'embedding' layer
-num_tokens = len(w2v_model.wv.index_to_key)
-embedding_dim = w2v_model.vector_size
-embedding_matrix = w2v_model.syn1neg
+# num_tokens = len(w2v_model.wv.index_to_key)
+# embedding_dim = w2v_model.vector_size
+# embedding_matrix = w2v_model.syn1neg  # evtl. df aus store text correctly -> eher kein sinn
+
+num_tokens = len(voc) + 2
+embedding_dim = 100
+hits = 0
+misses = 0
+
+# Prepare embedding matrix
+embedding_matrix = np.zeros((num_tokens, embedding_dim))
+for word, i in word_index.items():
+    embedding_vector = embeddings_index.get(word)
+    if embedding_vector is not None:
+        # Words not found in embedding index will be all-zeros.
+        # This includes the representation for "padding" and "OOV"
+        embedding_matrix[i] = embedding_vector
+        hits += 1
+    else:
+        misses += 1
+print("Converted %d words (%d misses)" % (hits, misses))
 
 from tensorflow.keras.layers import Embedding
 
